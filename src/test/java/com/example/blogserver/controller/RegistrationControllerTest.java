@@ -39,7 +39,7 @@ public class RegistrationControllerTest {
     
     
     @Test
-    public void registrationSuccessful() throws Exception{
+    public void userRegistrationSuccessful() throws Exception{
         
         when(loginRegService.registerUser(any(RegistrationRequest.class))).thenReturn(new RegistrationResponse());
         
@@ -52,11 +52,34 @@ public class RegistrationControllerTest {
     }
     
     @Test
-    public void registrationFailure() throws Exception{
+    public void userRegistrationFailure() throws Exception{
         
         when(loginRegService.registerUser(any(RegistrationRequest.class))).thenThrow(new RuntimeException("Simulated Runtime Exception"));
         
         mockMvc.perform(MockMvcRequestBuilders.post("/register")
+                                    .contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(new RegistrationRequest())))
+                .andExpect(status().isInternalServerError());
+    }
+    
+     @Test
+    public void adminRegistrationSuccessful() throws Exception{
+        
+        when(loginRegService.registerAdmin(any(RegistrationRequest.class))).thenReturn(new RegistrationResponse());
+        
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/register/admin")
+                                    .contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(new RegistrationRequest())))
+                .andExpect(status().isOk())
+                .andReturn();
+        
+        assertEquals(200, result.getResponse().getStatus());
+    }
+    
+    @Test
+    public void adminRegistrationFailure() throws Exception{
+        
+        when(loginRegService.registerAdmin(any(RegistrationRequest.class))).thenThrow(new RuntimeException("Simulated Runtime Exception"));
+        
+        mockMvc.perform(MockMvcRequestBuilders.post("/register/admin")
                                     .contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(new RegistrationRequest())))
                 .andExpect(status().isInternalServerError());
     }

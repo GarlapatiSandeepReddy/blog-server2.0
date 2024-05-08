@@ -23,9 +23,18 @@ public class RegistrationController {
     LoginRegService loginRegService;
     
     @PostMapping("/register")
-    public ResponseEntity register(RegistrationRequest registerRequest){
+    public ResponseEntity registerUser(RegistrationRequest registerRequest){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(loginRegService.registerUser(registerRequest));
+        }catch(Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+    
+    @PostMapping("/register/admin")
+    public ResponseEntity registerAdmin(RegistrationRequest registerRequest){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(loginRegService.registerAdmin(registerRequest));
         }catch(Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }

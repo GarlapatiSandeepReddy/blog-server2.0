@@ -21,7 +21,11 @@ public class LoginRegService {
         return null;
     }
     
-     public RegistrationResponse registerUser(RegistrationRequest registerRequest){
+     public RegistrationResponse registerUser(RegistrationRequest registrationRequest){
+        return null;
+    }
+     
+    public RegistrationResponse registerAdmin(RegistrationRequest registrationRequest){
         return null;
     }
     
