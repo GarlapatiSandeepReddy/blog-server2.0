@@ -4,26 +4,31 @@
  */
 package com.example.blogserver.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 /**
  *
  * @author garla
  */
+@Data
+@Entity
+@Table(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
-public class RegistrationRequest {
+public class User {
+    @Id
     @Getter@Setter private String firstName;
     @Getter@Setter private String lastName;
     @Getter@Setter private String email;
     @Getter@Setter private String userName;
     @Getter@Setter private String password;
-    @Getter@Setter private String adminCode;
-    @Getter@Setter private boolean isAdmin;
+    @Getter@Setter private String role;
     
 }

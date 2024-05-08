@@ -19,4 +19,5 @@ import lombok.ToString;
 @ToString
 public class LoginResponse {
     @Getter@Setter private int status;
+    @Getter@Setter private String message;
 }
