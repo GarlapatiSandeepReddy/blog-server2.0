@@ -6,11 +6,11 @@ package com.example.blogserver.controller;
 
 import com.example.blogserver.service.LoginRegService;
 import com.example.blogserver.model.LoginRequest;
-import com.example.blogserver.model.LoginResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -24,8 +24,9 @@ public class LoginController {
     LoginRegService loginRegService;
     
     @PostMapping("/login")
-    public ResponseEntity login(LoginRequest loginRequest){
+    public ResponseEntity login(@RequestBody LoginRequest loginRequest){
         try{
+            System.out.println(loginRequest);
             return ResponseEntity.status(HttpStatus.OK).body(loginRegService.login(loginRequest));
         }catch(Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());

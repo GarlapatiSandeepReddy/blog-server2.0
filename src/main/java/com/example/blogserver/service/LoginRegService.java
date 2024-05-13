@@ -12,6 +12,8 @@ import com.example.blogserver.model.User;
 import com.example.blogserver.repository.UserRepository;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -24,15 +26,29 @@ public class LoginRegService {
     @Autowired
     UserRepository userRepository;
     
+    @Autowired
+    JwtService jwtService;
+    
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
+    
     public LoginResponse login(LoginRequest loginRequest){
         LoginResponse loginResponse = new LoginResponse();
         try{
+//            loginRequest.setPassword(bCryptPasswordEncoder.encode(loginRequest.getPassword()));
             Optional<User> optional = userRepository.findById(loginRequest.getUserName());
             if(optional.isPresent()){
                 User user = optional.get();
-                if(user.getPassword().equals(loginRequest.getPassword())){
+//                System.out.println(loginRequest.getPassword());
+//                loginRequest.setPassword(bCryptPasswordEncoder.(loginRequest.getPassword()));
+//                System.out.println(loginRequest.getPassword());
+//                System.out.println(user.getPassword());
+                
+                if(BCrypt.checkpw(loginRequest.getPassword(), user.getPassword())){
+                    String jwtToken = jwtService.generateToken(user.getUserName());
+                    loginResponse.setJwtToken(jwtToken);
                     loginResponse.setStatus(200);
-                    loginResponse.setMessage(user.getRole() + " LOGIN SUCCESSFUL");
+                    
                 }else{
                     loginResponse.setStatus(400);
                     loginResponse.setMessage("Incorrect Password ");
@@ -54,6 +70,9 @@ public class LoginRegService {
         try{
             if(!registrationRequest.isAdmin() && 
                 (registrationRequest.getAdminCode() == null || registrationRequest.getAdminCode().equals(""))){
+                System.out.println(registrationRequest.getPassword());
+                registrationRequest.setPassword(bCryptPasswordEncoder.encode(registrationRequest.getPassword()));
+                System.out.println(registrationRequest.getPassword());
                 User user = new User(registrationRequest.getFirstName(),
                                         registrationRequest.getLastName(),
                                         registrationRequest.getEmail(),
@@ -80,6 +99,9 @@ public class LoginRegService {
         try{
             if(registrationRequest.isAdmin() && 
                 (registrationRequest.getAdminCode() != null && registrationRequest.getAdminCode().equals("sample"))){
+                System.out.println(registrationRequest.getPassword());
+                registrationRequest.setPassword(bCryptPasswordEncoder.encode(registrationRequest.getPassword()));
+                System.out.println(registrationRequest.getPassword());
                 User user = new User(registrationRequest.getFirstName(),
                                         registrationRequest.getLastName(),
                                         registrationRequest.getEmail(),

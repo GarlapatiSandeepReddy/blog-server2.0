@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -22,8 +23,8 @@ public class RegistrationController {
     @Autowired
     LoginRegService loginRegService;
     
-    @PostMapping("/register")
-    public ResponseEntity registerUser(RegistrationRequest registerRequest){
+    @PostMapping("register")
+    public ResponseEntity registerUser(@RequestBody RegistrationRequest registerRequest){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(loginRegService.registerUser(registerRequest));
         }catch(Exception e){
@@ -31,9 +32,10 @@ public class RegistrationController {
         }
     }
     
-    @PostMapping("/register/admin")
-    public ResponseEntity registerAdmin(RegistrationRequest registerRequest){
+    @PostMapping("register/admin")
+    public ResponseEntity registerAdmin(@RequestBody RegistrationRequest registerRequest){
         try{
+            System.out.println(registerRequest);
             return ResponseEntity.status(HttpStatus.OK).body(loginRegService.registerAdmin(registerRequest));
         }catch(Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());

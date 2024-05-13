@@ -4,21 +4,25 @@
  */
 package com.example.blogserver.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 /**
  *
  * @author garla
  */
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-public class LoginResponse {
-    private int status;
-    private String jwtToken;
-    private String message;
+@Entity
+@Table(name = "posts")
+public class Post {
+    @Id
+    private int id;
+    private String postTitle;
+    private String postBody;
 }

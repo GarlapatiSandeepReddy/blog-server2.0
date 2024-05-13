@@ -8,4 +8,4 @@
  */
 
 
-INSERT INTO users(firstName, lastName, email, userName, password, role) values('Sandeep', 'Garlapati', 'garlapsr@gmail.com', 'garlapsr', 'garlapsr', 'ADMIN');
+INSERT INTO users(firstName, lastName, email, userName, password, role) values('Sandeep', 'Garlapati', 'garlapsr@gmail.com', 'garlapsr', '$2y$12$LpdRZDDih0gynNQ4/38p9OUt9ZksSHe02M421ArLAWTQnJcX2UO8a', 'ADMIN');

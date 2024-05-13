@@ -4,26 +4,25 @@
  */
 package com.example.blogserver.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-
 /**
  *
  * @author garla
  */
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@Data
 public class RegistrationRequest {
-    @Getter@Setter private String firstName;
-    @Getter@Setter private String lastName;
-    @Getter@Setter private String email;
-    @Getter@Setter private String userName;
-    @Getter@Setter private String password;
-    @Getter@Setter private String adminCode;
-    @Getter@Setter private boolean isAdmin;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String userName;
+    private String password;
+    private String adminCode;
+    @JsonProperty
+    private boolean isAdmin;
     
 }

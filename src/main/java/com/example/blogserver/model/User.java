@@ -4,6 +4,7 @@
  */
 package com.example.blogserver.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -24,12 +25,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
-    @Id
-    @Getter@Setter private String firstName;
-    @Getter@Setter private String lastName;
-    @Getter@Setter private String email;
-    @Getter@Setter private String userName;
-    @Getter@Setter private String password;
-    @Getter@Setter private String role;
+    @Getter@Setter@Column(name = "firstname") private String firstName;
+    @Getter@Setter@Column(name = "lastname") private String lastName;
+    @Getter@Setter@Column(name = "email") private String email;
+    @Getter@Setter@Id@Column(name = "username") private String userName;
+    @Getter@Setter@Column(name = "password") private String password;
+    @Getter@Setter@Column(name = "role") private String role;
     
 }
