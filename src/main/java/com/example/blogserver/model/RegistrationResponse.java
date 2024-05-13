@@ -5,10 +5,8 @@
 package com.example.blogserver.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 /**
  *
@@ -16,8 +14,8 @@ import lombok.ToString;
  */
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@Data
 public class RegistrationResponse {
-    @Getter@Setter private int status;
-    @Getter@Setter private String message;
+    private int status;
+    private String message;
 }
